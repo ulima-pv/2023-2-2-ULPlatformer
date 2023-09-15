@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private float runSpeed = 2f;
+    [SerializeField]
+    private float jumpSpeed = 4f;
 
     private float moveDirection = 0f;
     private Rigidbody2D rb;
@@ -22,6 +25,15 @@ public class PlayerMovement : MonoBehaviour
     private void OnMove(InputValue value)
     {
         moveDirection = value.Get<float>();
+    }
+
+    private void OnJump(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            // Saltar
+            rb.velocity += new Vector2(0f, jumpSpeed);
+        }
     }
 
     private void Update()
